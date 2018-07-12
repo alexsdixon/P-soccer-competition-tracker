@@ -1,0 +1,27 @@
+body {
+    font-family: sans-serif;
+}
+
+nav {
+    height: 25px;
+}
+
+ul {
+
+}
+
+.error {
+    color: red;
+}
+
+ul.navList li {
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0 10px;
+    float: left;
+}
+
+#content {
+    clear: both;
+}
