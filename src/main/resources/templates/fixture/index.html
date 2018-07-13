@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${fixtures} and ${fixtures.size()}"></p>
+
+
+<table class="table">
+
+    <tr>
+        <th>Team Names</th>
+        <th>Referee Name</th>
+        <th>Match Date</th>
+        <th>Match Time</th>
+    </tr>
+
+    <tr th:each="fixture : ${fixtures}">
+        <td th:text="${fixture.team_name} "></td>
+        <td th:text="${fixture.ref_name}"></td>
+        <td th:text="${fixture.match_date}"></td>
+        <td th:text="${fixture.match_time}"></td>
+    </tr>
+
+</table>
+
+
+
+</body>
+</html>
