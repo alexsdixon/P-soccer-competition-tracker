@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<form method="post">
+
+    <div th:each="fixture : ${fixtures}" class="checkbox">
+        <input type="checkbox" name="fixtureIds" th:value="${fixture.id}" th:id="${fixture.id}"/>
+        <label th:for="${fixture.id}" th:text="${fixture.home_team_name} + ' VS ' + ${fixture.away_team_name}"></label>
+        <br />
+    </div>
+
+    <input type="submit" value="Remove Fixture" />
+</form>
+
+</body>
+</html>

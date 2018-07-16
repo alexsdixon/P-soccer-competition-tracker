@@ -14,6 +14,7 @@
 <table class="table">
 
     <tr>
+        <th>Edit Match</th>
         <th>Team Names</th>
         <th>Referee Name</th>
         <th>Match Date</th>
@@ -21,7 +22,8 @@
     </tr>
 
     <tr th:each="fixture : ${fixtures}">
-        <td th:text="${fixture.team_name} "></td>
+        <td><a th:href="'fixture/edit/' + ${fixture.id}" th:text="Edit"></a></td>
+        <td th:text="${fixture.home_team_name} + ' VS ' + ${fixture.away_team_name} "></td>
         <td th:text="${fixture.ref_name}"></td>
         <td th:text="${fixture.match_date}"></td>
         <td th:text="${fixture.match_time}"></td>

@@ -17,8 +17,11 @@ public class Fixture {
 
     @NotNull
     @Size(min=1,  message= "Name is invalid")
-    private String team_name;
+    private String home_team_name;
 
+    @NotNull
+    @Size(min=1,  message= "Name is invalid")
+    private String away_team_name;
 
     @NotNull
     @Size(min=1,  message= "Name is invalid")
@@ -32,9 +35,10 @@ public class Fixture {
     @Size(min=1,  message= "time is invalid")
     private String match_time;
 
-    public Fixture(String team_name, String ref_name, String match_date, String match_time){
+    public Fixture(String home_team_name, String away_team_name, String ref_name, String match_date, String match_time){
 
-        this.team_name = team_name;
+        this.home_team_name = home_team_name;
+        this.away_team_name = away_team_name;
         this.ref_name =  ref_name;
         this.match_date = match_date;
         this.match_time = match_time;
@@ -46,12 +50,19 @@ public class Fixture {
         return id;
     }
 
-    public String getTeam_name() {
-        return team_name;
+    public String getHome_team_name() {
+        return home_team_name;
     }
 
-    public void setTeam_name(String team_name) {
-        this.team_name = team_name;
+    public void setHome_team_name(String home_team_name) {
+        this.home_team_name = home_team_name;
+    }
+    public String getAway_team_name() {
+        return away_team_name;
+    }
+
+    public void setAway_team_name(String away_team_name) {
+        this.away_team_name = away_team_name;
     }
 
     public String getRef_name() {
