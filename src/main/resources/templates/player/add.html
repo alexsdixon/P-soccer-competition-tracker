@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<form method="post" style="max-width:600px;" th:object="${player}">
+    <div class="form-group">
+        <label th:for="player_name">Player Name</label>
+        <input class="form-control" th:field="*{player_name}" />
+        <div th:errors="*{player_name}" class="error"></div>
+    </div>
+    <div class="form-group">
+        <label th:for="player_position">Position</label>
+        <input class="form-control" th:field="*{player_position}" />
+        <div th:errors="*{player_position}" class="error"></div>
+    </div>
+    <div class="form-group">
+        <label th:for="team_name">Team Name</label>
+        <input class="form-control" th:field="*{team_name}" />
+        <div th:errors="*{team_name}" class="error"></div>
+    </div>
+    <div class="form-group">
+        <label th:for="goal_scored">Goals</label>
+        <input class="form-control" th:field="*{goal_scored}" />
+        <div th:errors="*{goal_scored}" class="error"></div>
+    </div>
+    <div class="form-group">
+        <label th:for="assists">Assists</label>
+        <input class="form-control" th:field="*{assists}" />
+        <div th:errors="*{assists}" class="error"></div>
+    </div>
+    <div class="form-group">
+        <label th:for="clean_sheet">Clean Sheet</label>
+        <input class="form-control" th:field="*{clean_sheet}" />
+        <div th:errors="*{clean_sheet}" class="error"></div>
+    </div>
+    <div class="form-group">
+        <label th:for="red_card">Red Card</label>
+        <input class="form-control" th:field="*{red_card}" />
+        <div th:errors="*{red_card}" class="error"></div>
+    </div>
+    <div class="form-group">
+        <label th:for="yellow_card">Yellow Card</label>
+        <input class="form-control" th:field="*{yellow_card}" />
+        <div th:errors="*{yellow_card}" class="error"></div>
+    </div>
+
+    <input type="submit" value="Add Player" />
+</form>
+
+</body>
+</html>

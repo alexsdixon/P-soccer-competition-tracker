@@ -7,33 +7,50 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <form method="post" style="max-width:600px;" th:object="${fixture}">
-    <div class="form-group">
-        <label th:for="home_team_name">Home Team Name</label>
-        <input class="form-control" th:field="*{home_team_name}" />
-        <div th:errors="*{home_team_name}" class="error"></div>
+    <div class="hidden">
+        <label th:for="team_name">Home Team</label>
+        <select name="teamId">
+            <option th:each="team : ${teams}"
+                    th:text="${team.team_name}"
+                    th:value="${team.id}"
+                    th:selected="${team.id == fixture.team.id}"></option>
+        </select>
     </div>
-    <div class="form-group">
-        <label th:for="away_team_name">Away Team Name</label>
-        <input class="form-control" th:field="*{away_team_name}" />
-        <div th:errors="*{away_team_name}" class="error"></div>
+    <div class="hidden">
+        <label th:for="team_name">Away Team</label>
+        <select name="team2Id">
+            <option th:each="team : ${teams}"
+                    th:text="${team.team_name}"
+                    th:value="${team.id}"
+                    th:selected="${team.id == fixture.team.id}"></option>
+        </select>
     </div>
-    <div class="form-group">
+    <div class="hidden">
         <label th:for="ref_name">Match Official</label>
         <input class="form-control" th:field="*{ref_name}" />
         <div th:errors="*{ref_name}" class="error"></div>
     </div>
-    <div class="form-group">
+    <div class="hidden">
         <label th:for="match_date">Match Date</label>
         <input class="form-control" th:field="*{match_date}" />
         <div th:errors="*{match_date}" class="error"></div>
     </div>
-    <div class="form-group">
+    <div class="hidden">
         <label th:for="match_time">Match Time</label>
         <input class="form-control" th:field="*{match_time}" />
         <div th:errors="*{match_time}" class="error"></div>
     </div>
+    <div class="form-group">
+        <label th:for="home_team_goal">Home Team Score</label>
+        <input class="form-control" th:field="*{home_team_goal}"  />
+    </div>
+    <div class="form-group">
+        <label th:for="away_team_goal">Away Team Score</label>
+        <input class="form-control" th:field="*{away_team_goal}"  />
+    </div>
 
-    <input type="submit" value="Save Fixture" />
+
+    <input type="submit" value="Save Edited Fixture" />
 </form>
 
 </body>

@@ -14,23 +14,26 @@
 <table class="table">
 
     <tr>
-        <th>Edit Match</th>
         <th>Team Names</th>
         <th>Referee Name</th>
         <th>Match Date</th>
         <th>Match Time</th>
+        <th>Match Results</th>
     </tr>
 
     <tr th:each="fixture : ${fixtures}">
-        <td><a th:href="'fixture/edit/' + ${fixture.id}" th:text="Edit"></a></td>
-        <td th:text="${fixture.home_team_name} + ' VS ' + ${fixture.away_team_name} "></td>
+        <td th:text="${fixture.team.getTeam_name()} + ' ' + VS + ' '+ ${fixture.team_second.getTeam_name()}"></td>
         <td th:text="${fixture.ref_name}"></td>
         <td th:text="${fixture.match_date}"></td>
         <td th:text="${fixture.match_time}"></td>
+        <td><a th:href="'fixture/edit/' + ${fixture.id}" th:text=" ${fixture.home_team_goal} + ' - ' + ${fixture.away_team_goal} "></a></td>
     </tr>
 
 </table>
 
+<a href="/fixture">Fixture Home</a> |
+<a href="/fixture/add">Add Fixture</a> |
+<a th:href="@{/fixture/remove}">Remove Fixture</a> |
 
 
 </body>

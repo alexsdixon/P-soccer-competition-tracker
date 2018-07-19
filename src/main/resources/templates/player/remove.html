@@ -9,13 +9,13 @@
 
 <form method="post">
 
-    <div th:each="fixture : ${fixtures}" class="checkbox">
-        <input type="checkbox" name="fixtureIds" th:value="${fixture.id}" th:id="${fixture.id}"/>
-        <label th:for="${fixture.id}" th:text="${fixture.team_name} "></label>
+    <div th:each="player : ${players}" class="checkbox">
+        <input type="checkbox" name="playersIds" th:value="${players.id}" th:id="${players.id}"/>
+        <label th:for="${player.id}" th:text="${player.player_name} "></label>
         <br />
     </div>
 
-    <input type="submit" value="Remove Fixture" />
+    <input type="submit" value="Remove Player" />
 </form>
 
 </body>

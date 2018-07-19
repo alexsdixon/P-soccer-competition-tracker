@@ -3,7 +3,9 @@ package net.alexdixon.soccercompetitiontracker.controllers;
 
 
 import net.alexdixon.soccercompetitiontracker.models.data.FixtureDao;
+import net.alexdixon.soccercompetitiontracker.models.data.TeamDao;
 import net.alexdixon.soccercompetitiontracker.models.forms.Fixture;
+import net.alexdixon.soccercompetitiontracker.models.forms.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,9 @@ public class FixtureController {
 
     @Autowired
     private FixtureDao fixtureDao;
+
+    @Autowired
+    private TeamDao teamDao;
 
 
 
@@ -37,17 +42,24 @@ public class FixtureController {
     public String displayaddFixtureForm(Model model) {
             model.addAttribute("title", "Add Match Fixture");
             model.addAttribute(new Fixture());
+            model.addAttribute("teams", teamDao.findAll());
             return "fixture/add";
         }
 
     //Process and validate new Match Fixture
     @RequestMapping (value = "add", method = RequestMethod.POST)
-    public String processAddFixtureForm(@ModelAttribute @Valid Fixture newFixture, Errors errors, Model model){
+    public String processAddFixtureForm(@ModelAttribute @Valid Fixture newFixture, Errors errors,
+                                        @RequestParam int teamId, @RequestParam int team2Id, Model model){
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Fixture");
             return "fixture/add";
         }
+
+            Team side = teamDao.findOne(teamId);
+            Team side_away = teamDao.findOne(team2Id);
+            newFixture.setTeam(side);
+            newFixture.setTeam_second(side_away);
             fixtureDao.save(newFixture);
             return "redirect:";
     }
@@ -76,16 +88,17 @@ public class FixtureController {
     @RequestMapping(value = "edit/{fixtureId}", method = RequestMethod.GET)
     public String displayEditFixtureForm(Model model, @PathVariable int fixtureId) {
 
-        model.addAttribute("title", "Edit Fixture");
+        model.addAttribute("title", "Add Match Results");
         model.addAttribute("fixture", fixtureDao.findOne(fixtureId));
-
+        model.addAttribute("teams", teamDao.findAll());
         return "fixture/edit";
     }
 
     //Process Edit Match Fixture
     @RequestMapping(value = "edit/{fixtureId}", method = RequestMethod.POST)
     public String processEditFixtureForm(Model model, @PathVariable int fixtureId,
-                                  @ModelAttribute  @Valid Fixture newFixture, Errors errors) {
+                                         @ModelAttribute  @Valid Fixture newFixture,
+                                         Errors errors, @RequestParam int teamId,@RequestParam int team2Id) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Fixture");
@@ -93,12 +106,13 @@ public class FixtureController {
         }
 
         Fixture editedFixture = fixtureDao.findOne(fixtureId);
-        editedFixture.setHome_team_name(newFixture.getHome_team_name());
-        editedFixture.setAway_team_name(newFixture.getAway_team_name());
         editedFixture.setRef_name(newFixture.getRef_name());
         editedFixture.setMatch_date(newFixture.getMatch_date());
         editedFixture.setMatch_time(newFixture.getMatch_time());
-
+        editedFixture.setHome_team_goal(newFixture.getHome_team_goal());
+        editedFixture.setAway_team_goal(newFixture.getAway_team_goal());
+        editedFixture.setTeam(teamDao.findOne(teamId));
+        editedFixture.setTeam_second(teamDao.findOne(team2Id));
         fixtureDao.save(editedFixture);
 
         return "redirect:/fixture";

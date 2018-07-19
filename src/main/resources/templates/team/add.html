@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<form method="post" th:object="${team}">
+    <div class="form-group">
+        <label th:for="team_name"> Team Name</label>
+        <input class="form-control" th:field="*{team_name}" />
+        <span th:errors="*{team_name}" class="error"></span>
+    </div>
+
+    <input type="submit" value="Add Team" />
+</form>
+
+</body>
+</html>

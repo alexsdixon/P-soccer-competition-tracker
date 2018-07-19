@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${players} and ${players.size()}"></p>
+
+
+<table class="table">
+
+    <tr>
+        <th>Player</th>
+        <th>Team Name</th>
+        <th>Position</th>
+        <th>Goals</th>
+        <th>Assists</th>
+        <th>Clean Sheet</th>
+        <th>Red Card</th>
+        <th>Yellow Card</th>
+    </tr>
+
+    <tr th:each="player : ${players}">
+        <td><a th:href="'player/edit/' + ${player.id}" th:text="Edit"></a></td>
+        <td th:text="${player.player_name} "></td>
+        <td th:text="${player.team_name}"></td>
+        <td th:text="${player.player_position}"></td>
+        <td th:text="${player.goal_scored}"></td>
+        <td th:text="${player.assists}"></td>
+        <td th:text="${player.clean_sheet}"></td>
+        <td th:text="${player.red_card}"></td>
+        <td th:text="${player.yellow_card}"></td>
+    </tr>
+
+</table>
+
+<a href="/player">Player Home</a> |
+<a href="/player/add">Add Player</a> |
+<a th:href="@{/player/remove}">Remove Player</a> |
+
+</body>
+</html>
