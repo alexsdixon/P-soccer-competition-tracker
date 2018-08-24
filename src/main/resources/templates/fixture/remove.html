@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container">
+<body class="container" style="margin-top:100px">
 
 <h1 th:text="${title}">Default Title</h1>
 
@@ -11,7 +11,7 @@
 
     <div th:each="fixture : ${fixtures}" class="checkbox">
         <input type="checkbox" name="fixtureIds" th:value="${fixture.id}" th:id="${fixture.id}"/>
-        <label th:for="${fixture.id}" th:text="${fixture.team_name} "></label>
+        <label th:for="${fixture.id}" th:text="${fixture.team.getTeam_name()} + ' ' + VS + ' '+ ${fixture.team_second.getTeam_name()}"></label>
         <br />
     </div>
 

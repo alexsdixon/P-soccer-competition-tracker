@@ -25,6 +25,10 @@ public class Team {
     @JoinColumn(name = "team_id")
     private List<Fixture> fixtures = new ArrayList<>();
 
+    @OneToMany
+    @JoinColumn(name = "team_id")
+    private List<Player> players = new ArrayList<>();
+
     public int getId(){
         return id;
     }

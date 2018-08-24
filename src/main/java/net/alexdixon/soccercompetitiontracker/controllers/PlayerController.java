@@ -1,7 +1,9 @@
 package net.alexdixon.soccercompetitiontracker.controllers;
 
 import net.alexdixon.soccercompetitiontracker.models.data.PlayerDao;
+import net.alexdixon.soccercompetitiontracker.models.data.TeamDao;
 import net.alexdixon.soccercompetitiontracker.models.forms.Player;
+import net.alexdixon.soccercompetitiontracker.models.forms.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +20,8 @@ public class PlayerController {
     @Autowired
     private PlayerDao playerDao;
 
-
+    @Autowired
+    private TeamDao teamDao;
 
 
     @RequestMapping(value = "")
@@ -35,16 +38,21 @@ public class PlayerController {
     public String displayaddPlayerForm(Model model) {
         model.addAttribute("title", "Add Player");
         model.addAttribute(new Player());
+        model.addAttribute("teams", teamDao.findAll());
         return "player/add";
     }
 
     @RequestMapping (value = "add", method = RequestMethod.POST)
-    public String processAddPlayerForm(@ModelAttribute @Valid Player newPlayer, Errors errors, Model model){
+    public String processAddPlayerForm(@ModelAttribute @Valid Player newPlayer, Errors errors,
+                                       @RequestParam int teamId, Model model){
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Player");
             return "player/add";
         }
+
+        Team side = teamDao.findOne(teamId);
+        newPlayer.setTeam(side);
         playerDao.save(newPlayer);
         return "redirect:";
     }
@@ -75,14 +83,15 @@ public class PlayerController {
 
         model.addAttribute("title", "Edit Player");
         model.addAttribute("player", playerDao.findOne(playerId));
-
+        model.addAttribute("teams", teamDao.findAll());
         return "player/edit";
     }
 
 
     @RequestMapping(value = "edit/{playerId}", method = RequestMethod.POST)
     public String processEditPlayerForm(Model model, @PathVariable int playerId,
-                                         @ModelAttribute  @Valid Player newPlayer, Errors errors) {
+                                         @ModelAttribute  @Valid Player newPlayer, Errors errors,
+                                         @RequestParam int teamId) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Player");
@@ -91,7 +100,7 @@ public class PlayerController {
 
         Player editedPlayer = playerDao.findOne(playerId);
         editedPlayer.setPlayer_name(newPlayer.getPlayer_name());
-        editedPlayer.setTeam_name(newPlayer.getTeam_name());
+        editedPlayer.setTeam(teamDao.findOne(teamId));
         editedPlayer.setPlayer_position(newPlayer.getPlayer_position());
         editedPlayer.setGoal_scored(newPlayer.getGoal_scored());
         editedPlayer.setAssists(newPlayer.getAssists());

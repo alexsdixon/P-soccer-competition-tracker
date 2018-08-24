@@ -10,12 +10,22 @@
 </head>
 <body>
 
-<nav th:fragment="navigation">
-    <a href="/fixture">Fixture Home</a> |
-    <a href="/player">Player Home</a> |
-    <a href="/team">Team Home</a> |
+<nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/guest">JAMROCK CUP</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/guest"><span class="glyphicon glyphicon-home"></span>Home Page</a></li>
+            <li><a href="/fixture"><span class="glyphicon glyphicon-calendar"></span>Fixtures</a></li>
+            <li><a href="/player"><span class="glyphicon glyphicon-user"></span>Players</a></li>
+            <li><a href="/team"><span class="glyphicon glyphicon-check"></span>Teams</a></li>
+        </ul>
 
-
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
 </nav>
 
 </body>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body class="container">
+<body class="container" style="margin-top:100px">
 
 <h1 th:text="${title}">Default Title</h1>
 
@@ -11,7 +11,7 @@
 <p th:unless="${fixtures} and ${fixtures.size()}"></p>
 
 
-<table class="table">
+<table class="table table-bordered">
 
     <tr>
         <th>Team Names</th>
@@ -26,12 +26,11 @@
         <td th:text="${fixture.ref_name}"></td>
         <td th:text="${fixture.match_date}"></td>
         <td th:text="${fixture.match_time}"></td>
-        <td><a th:href="'fixture/edit/' + ${fixture.id}" th:text=" ${fixture.home_team_goal} + ' - ' + ${fixture.away_team_goal} "></a></td>
+        <td><a th:href="'/fixture/edit/' + ${fixture.id}" th:text=" ${fixture.home_team_goal} + ' - ' + ${fixture.away_team_goal} "></a></td>
     </tr>
 
 </table>
 
-<a href="/fixture">Fixture Home</a> |
 <a href="/fixture/add">Add Fixture</a> |
 <a th:href="@{/fixture/remove}">Remove Fixture</a> |
 

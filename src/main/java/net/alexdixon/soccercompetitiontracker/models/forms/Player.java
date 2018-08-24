@@ -3,6 +3,7 @@ package net.alexdixon.soccercompetitiontracker.models.forms;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -19,9 +20,8 @@ public class Player {
     private String player_name;
 
 
-    @NotNull
-    @Size(min = 1, message = "Name is invalid")
-    private String team_name;
+    @ManyToOne
+    private Team team;
 
     @NotNull
     @Size(min = 1, message = "Position is invalid")
@@ -35,10 +35,9 @@ public class Player {
     private int yellow_card;
 
 
-    public Player(String player_name, String team_name, String player_position, int goal_scored, int assists, int clean_sheet, int red_card, int yellow_card) {
+    public Player(String player_name,  String player_position, int goal_scored, int assists, int clean_sheet, int red_card, int yellow_card) {
 
         this.player_name = player_name;
-        this.team_name = team_name;
         this.player_position = player_position;
         this.goal_scored = goal_scored;
         this.assists = assists;
@@ -60,14 +59,6 @@ public class Player {
 
     public void setPlayer_name(String player_name) {
         this.player_name = player_name;
-    }
-
-    public String getTeam_name() {
-        return team_name;
-    }
-
-    public void setTeam_name(String team_name) {
-        this.team_name = team_name;
     }
 
     public String getPlayer_position() {
@@ -116,6 +107,14 @@ public class Player {
 
     public void setYellow_card(int yellow_card) {
         this.yellow_card = yellow_card;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
 
