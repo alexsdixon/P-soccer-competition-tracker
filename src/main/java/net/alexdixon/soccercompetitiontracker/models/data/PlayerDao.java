@@ -22,6 +22,8 @@ public interface PlayerDao extends CrudRepository<Player, Integer> {
     @Query(value = "SELECT * FROM player WHERE clean_sheet > 0 AND player_position = 'Goalkeeper' ORDER BY clean_sheet DESC LIMIT 5 ", nativeQuery = true)
     List<Player> findByCleanSheet();
 
+    @Query(value = "SELECT * FROM player ORDER BY player_position , player_name  ", nativeQuery = true)
+    List<Player> findBySorted();
 
 }
 

@@ -2,14 +2,14 @@ package net.alexdixon.soccercompetitiontracker.controllers;
 
 import net.alexdixon.soccercompetitiontracker.models.data.FixtureDao;
 import net.alexdixon.soccercompetitiontracker.models.data.PlayerDao;
-import net.alexdixon.soccercompetitiontracker.models.forms.Player;
+import net.alexdixon.soccercompetitiontracker.models.data.TeamDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+
 
 
 @Controller
@@ -23,6 +23,9 @@ public class GuestController {
 
     @Autowired
     private PlayerDao playerDao;
+
+    @Autowired
+    private TeamDao teamDao;
 
 
     @RequestMapping(value = "")
@@ -49,5 +52,30 @@ public class GuestController {
         return "guest/leader";
     }
 
+    @RequestMapping(value = "stats")
+    public String displayStatsBoard ( Model model) {
+
+
+
+        model.addAttribute("title", "Team Stats Board");
+        model.addAttribute("teams", teamDao.findByPoints());
+
+
+
+        return "guest/stats";
+    }
+
+    @RequestMapping(value = "everyplayer")
+    public String displayEveryPlayer ( Model model) {
+
+
+
+        model.addAttribute("title", "Every Player");
+        model.addAttribute("players", playerDao.findBySorted());
+
+
+
+        return "guest/everyplayer";
+    }
 
 }

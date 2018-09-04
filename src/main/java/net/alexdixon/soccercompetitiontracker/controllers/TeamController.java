@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -48,6 +46,42 @@ public class TeamController {
         return "redirect:";
     }
 
+    @RequestMapping(value = "edit/{teamId}", method = RequestMethod.GET)
+    public String displayEditTeamForm(Model model, @PathVariable int teamId) {
+
+        model.addAttribute("title", "Edit Team");
+        model.addAttribute("team", teamDao.findOne(teamId));
+        return "team/edit";
+    }
+
+
+    @RequestMapping(value = "edit/{teamId}", method = RequestMethod.POST)
+    public String processEditPlayerForm(Model model, @PathVariable int teamId,
+                                        @ModelAttribute  @Valid Team newTeam, Errors errors) {
+
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Add Team");
+            return "team/edit";
+        }
+
+        Team editedTeam = teamDao.findOne(teamId);
+        editedTeam.setTeam_name(newTeam.getTeam_name());
+        editedTeam.setPoints(newTeam.getPoints());
+        editedTeam.setMatches_played(newTeam.getMatches_played());
+        editedTeam.setMatches_won(newTeam.getMatches_won());
+        editedTeam.setMatches_lost(newTeam.getMatches_lost());
+        editedTeam.setMatches_draw(newTeam.getMatches_draw());
+        editedTeam.setGoals_for(newTeam.getGoals_for());
+        editedTeam.setGoals_against(newTeam.getGoals_against());
+        editedTeam.setGoal_difference(newTeam.getGoal_difference());
+
+        teamDao.save(editedTeam);
+
+        return "redirect:/team";
+    }
 
 
 }
+
+
+

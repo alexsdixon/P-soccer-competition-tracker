@@ -30,9 +30,10 @@ public class Player {
     private int clean_sheet;
     private int red_card;
     private int yellow_card;
+    private int games_played;
 
 
-    public Player(String player_name,  String player_position, int goal_scored, int assists, int clean_sheet, int red_card, int yellow_card) {
+    public Player(String player_name,  String player_position, int goal_scored, int assists, int clean_sheet, int red_card, int yellow_card, int games_played) {
 
         this.player_name = player_name;
         this.player_position = player_position;
@@ -41,6 +42,7 @@ public class Player {
         this.clean_sheet = clean_sheet;
         this.red_card = red_card;
         this.yellow_card = yellow_card;
+        this.games_played = games_played;
     }
 
     public Player() {
@@ -112,6 +114,14 @@ public class Player {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public int getGames_played() {
+        return games_played;
+    }
+
+    public void setGames_played(int games_played) {
+        this.games_played = games_played;
     }
 
 

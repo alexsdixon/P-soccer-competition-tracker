@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body >
+
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<div class="container panel panel-primary " style="margin-top:100px">
+
+    <div class="panel-heading " >
+        <h4>STANDINGS</h4>
+    </div>
+
+    <table class="table table-striped ">
+
+        <div style="margin-top:50px">
+
+                <tr class="info">
+                    <th>Team Name</th>
+                    <th>MP</th>
+                    <th>W</th>
+                    <th>L</th>
+                    <th>D</th>
+                    <th>GF</th>
+                    <th>GA</th>
+                    <th>GD</th>
+                    <th>Pts</th>
+                </tr>
+
+                <tr th:each="team : ${teams}">
+                    <td  th:text="${team.getTeam_name()}"></td>
+                    <td th:text="${team.matches_played}"></td>
+                    <td th:text="${team.matches_won}"></td>
+                    <td th:text="${team.matches_lost}"></td>
+                    <td th:text="${team.matches_draw}"></td>
+                    <td th:text="${team.goals_for}"></td>
+                    <td th:text="${team.goals_against}"></td>
+                    <td th:text="${team.goal_difference}"></td>
+                    <td th:text="${team.points}"></td>
+                </tr>
+
+        </div>
+    </table>
+
+
+</div>
+
+</body>
+</html>

@@ -28,7 +28,7 @@ public class PlayerController {
     public String index (Model model) {
 
         model.addAttribute("players", playerDao.findAll());
-        model.addAttribute("title", "Leading Players");
+        model.addAttribute("title", "Players");
 
         return "player/index";
     }
@@ -107,7 +107,7 @@ public class PlayerController {
         editedPlayer.setClean_sheet(newPlayer.getClean_sheet());
         editedPlayer.setRed_card(newPlayer.getRed_card());
         editedPlayer.setYellow_card(newPlayer.getYellow_card());
-
+        editedPlayer.setGames_played(newPlayer.getGames_played());
         playerDao.save(editedPlayer);
 
         return "redirect:/player";

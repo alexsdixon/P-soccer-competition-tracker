@@ -51,6 +51,11 @@
         <input class="form-control" th:field="*{yellow_card}" />
         <div th:errors="*{yellow_card}" class="error"></div>
     </div>
+    <div class="form-group">
+        <label th:for="games_played">Matches Played</label>
+        <input class="form-control" th:field="*{games_played}" />
+        <div th:errors="*{games_played}" class="error"></div>
+    </div>
 
     <input type="submit" value="Save Stats" />
 </form>

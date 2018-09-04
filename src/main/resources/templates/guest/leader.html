@@ -6,7 +6,7 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<div class="container panel panel-primary " style="margin-top:100px">
+<div class=" container panel panel-primary " style="margin-top:100px">
 
     <div class="panel-heading " >
         <h4>LEADER BOARD</h4>
@@ -19,9 +19,9 @@
         </div>
 
         <tr class="info" >
-            <th>Player</th>
-            <th>Team Name</th>
-            <th>Goals</th>
+            <th class="col-md-4">Player</th>
+            <th class="col-md-4">Team Name</th>
+            <th class="col-md-4">Goals</th>
         </tr>
 
         <tr th:each="player : ${players}">
@@ -39,9 +39,9 @@
         </div>
 
         <tr class="info">
-            <th>Player</th>
-            <th>Team Name</th>
-            <th>Assists</th>
+            <th class="col-md-4">Player</th>
+            <th class="col-md-4">Team Name</th>
+            <th class="col-md-4">Assists</th>
         </tr>
 
         <tr th:each="player : ${playersa}">
@@ -59,9 +59,9 @@
         </div>
 
         <tr class="info">
-            <th>Player</th>
-            <th>Team Name</th>
-            <th>Clean Sheets</th>
+            <th class="col-md-4">Player</th>
+            <th class="col-md-4">Team Name</th>
+            <th class="col-md-4">Clean Sheets</th>
         </tr>
 
         <tr th:each="player : ${playerscs}">
