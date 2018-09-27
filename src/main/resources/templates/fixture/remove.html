@@ -5,6 +5,7 @@
 
 <div class="container-fluid" style="color:#337ab7">
     <h1 th:text="${title}">Default Title</h1>
+    <h3 style="margin-top:50px;margin-left:400px;color:red" th:text="${message}"></h3>
 </div>
 
 <nav th:replace="fragments :: navadmin"></nav>
@@ -12,7 +13,7 @@
 <form class=" container-fluid" method="post" style="max-width:600px;margin-top:50px">
 
     <div th:each="fixture : ${fixtures}" class="checkbox">
-        <input type="checkbox" name="fixtureIds" th:value="${fixture.id}" th:id="${fixture.id}"/>
+        <input type="checkbox" name="fixtureIds" th:value="${fixture.id}" th:id="${fixture.id}" />
         <label style="font-size:20px;" th:for="${fixture.id}" th:text="${fixture.team.getTeam_name()} + ' ' + VS + ' '+ ${fixture.team_second.getTeam_name()}"></label>
         <br />
     </div>

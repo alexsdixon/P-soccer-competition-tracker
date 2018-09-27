@@ -67,7 +67,14 @@ public class PlayerController {
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemovePlayerForm(@RequestParam int[] playerIds) {
+    public String processRemovePlayerForm(@RequestParam(required=false) int[] playerIds, Model model) {
+
+        if (playerIds == null) {
+            model.addAttribute("fixtures", playerDao.findAll());
+            model.addAttribute ("title", "DELETE PLAYER");
+            model.addAttribute ("message", "Please choose a Player to delete or go back");
+            return "player/remove";
+        }
 
         for (int playerId : playerIds) {
             playerDao.delete(playerId);
@@ -75,6 +82,7 @@ public class PlayerController {
 
         return "redirect:";
     }
+
 
     @RequestMapping(value = "edit/{playerId}", method = RequestMethod.GET)
     public String displayEditPlayerForm(Model model, @PathVariable int playerId) {

@@ -7,7 +7,7 @@
 
 <nav th:replace="fragments :: navadmin"></nav>
 
-<p th:unless="${fixtures} and ${fixtures.size()}"></p>
+<p th:unless="${fixtures} and ${fixtures.size()}">No Fixtures Available</p>
 
 <div class="jumbotron text-center" style="background-color:#337ab7; font-family:verdana;">
     <h1 th:text="${title}">Default Title</h1>

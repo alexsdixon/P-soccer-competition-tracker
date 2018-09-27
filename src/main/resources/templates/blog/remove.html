@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container" style="margin-top:100px">
+<body style="margin-top:50px">
 
-<h1 th:text="${title}">Default Title</h1>
+<div class="container-fluid" style="color:#337ab7">
+    <h1 th:text="${title}">Default Title</h1>
+    <h3 style="margin-top:50px;margin-left:400px;color:red" th:text="${message}"></h3>
+</div>
 
 <nav th:replace="fragments :: navadmin"></nav>
 
-<form method="post">
+<form class=" container-fluid" method="post" style="max-width:600px;margin-top:50px">
 
     <div th:each="blog : ${blogs}" class="checkbox">
         <input type="checkbox" name="blogIds" th:value="${blog.id}" th:id="${blog.id}"/>
         <label th:for="${blog.id}" th:text="${blog.topic} "></label>
         <br />
     </div>
+    <br/>
 
-    <input type="submit" value="Remove Blog" />
+    <input  class="btn btn-danger" type="submit" value="Delete" />
+    <a href="/blog/" class="btn btn-primary" role="button">Cancel</a>
 </form>
 
 </body>

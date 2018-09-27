@@ -9,6 +9,7 @@ import net.alexdixon.soccercompetitiontracker.models.forms.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,20 +73,23 @@ public class FixtureController {
 
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveFixtureForm(@RequestParam int[] fixtureIds,Errors errors,Model model ) {
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "DELETE FIXTURE");
-            model.addAttribute("message", "Please select a Fixture or choose Cancel");
-            model.addAttribute("fixtures", fixtureDao.findAll());
-            return "fixture/remove";
-        }
+    public String processRemoveFixtureForm(@RequestParam(required=false) int[] fixtureIds,Model model) {
 
-        for (int fixtureId : fixtureIds) {
-            fixtureDao.delete(fixtureId);
-        }
+                if (fixtureIds == null) {
+                    model.addAttribute("fixtures", fixtureDao.findAll());
+                    model.addAttribute ("title", "DELETE FIXTURE");
+                    model.addAttribute ("message", "Please choose a Fixture to delete or go back");
+                    return "fixture/remove";
+                }
 
-        return "redirect:";
+                for (int fixtureId : fixtureIds) {
+                    fixtureDao.delete(fixtureId);
+                }
+
+                return "redirect:";
+
     }
+
 
 
     @RequestMapping(value = "edit/{fixtureId}", method = RequestMethod.GET)

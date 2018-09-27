@@ -61,7 +61,14 @@ public class BlogController {
 
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveBlogForm(@RequestParam int[] blogIds) {
+    public String processRemoveBlogForm(@RequestParam(required=false) int[] blogIds, Model model) {
+
+        if (blogIds == null) {
+            model.addAttribute("blogs", blogDao.findAll());
+            model.addAttribute ("title", "DELETE BLOG");
+            model.addAttribute ("message", "Please choose a Blog to delete or go back");
+            return "blog/remove";
+        }
 
         for (int blogId : blogIds) {
             blogDao.delete(blogId);
@@ -69,6 +76,7 @@ public class BlogController {
 
         return "redirect:";
     }
+
 
 
     @RequestMapping(value = "edit/{blogId}", method = RequestMethod.GET)
