@@ -4,53 +4,75 @@
 
 <body >
 
+<div sec:authorize="isAuthenticated()">
+    <nav th:replace="fragments :: navadmin"></nav>
+</div>
 
-<nav th:replace="fragments :: navigation"></nav>
+<div sec:authorize="isAnonymous()">
+    <nav th:replace="fragments :: navigation"></nav>
+</div>
+
+
+
 
 <div class="jumbotron text-center">
     <h1 th:text="${title}">Default Title</h1>
 </div>
 
-<div class=" panel panel-default col-sm-8">
-    <div class="media">
-        <div class="media-left">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh1b3L3kO8_J1pBKaV7XqVRS6JzjdBEd3fJENWFTkMCIMb1_yz"/>
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-9 sidenav">
+             <div class="media">
+                 <div class="media-left">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh1b3L3kO8_J1pBKaV7XqVRS6JzjdBEd3fJENWFTkMCIMb1_yz"/>
+                 </div>
+                 <div class="media-body">
+                    <h2>Welcome to the JamRock Soccer Cup Page </h2>
+                    <p> This Soccer League will run for 2 months and compromises of 8 teams from the surrounding neighborhoods. </p><p> Matches are scheduled for Saturdays and Sundays only (2 matches per day), 9 a.m and 12 p.m .  </p>
+                    <p> Each team will play a total of 7 matches (each team will play against all the other teams in the league once).</p>
+                     <p> At the end of the League the team with the most points wil be awarded a Trophy along with other prizes.</p>
+                 </div>
+             </div>
+            <br/>
+                <h3>MATCH SCHEDULE<span class="glyphicon glyphicon-calendar"></span></h3>
+                <div class="panel-group col-sm-4" >
+                    <ul th:each="fixture : ${fixtures}">
+                        <div class="panel panel-info ">
+                            <div class="panel-heading">
+                                <h4 th:text="${fixture.match_date}"></h4>
+                            </div>
+                            <div class="panel-body">
+                                <div style="overflow: hidden">
+                                    <p style="float: left"  class="glyphicon glyphicon-home" th:text=" ' ' + ${fixture.team.getTeam_name()}"></p>
+                                    <p style="float: right" th:text="${fixture.home_team_goal}"></p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <p style="float: left"  class="glyphicon glyphicon-plane" th:text=" ' ' + ${fixture.team_second.getTeam_name()}"></p>
+                                    <p style="float: right" th:text="${fixture.away_team_goal}"></p>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div style="overflow: hidden">
+                                    <p  style="float: left; margin-left:40px" th:text=" 'TIME:' + ' ' + ${fixture.match_time}"></p>
+                                    <p  style="float: right; margin-right:40px" th:text=" 'REF:' + ' ' + ${fixture.ref_name} "></p>
+                                </div>
+                            </div>
+                        </div>
+                     </ul>
+                </div>
         </div>
-        <div class="media-body">
-                <h2>Welcome to the JamRock Soccer Cup Page </h2>
-                <p> This Soccer League will run for 2 months and compromises of 8 teams from the surrounding neighborhoods. </p>
-                <p> Matches are scheduled for Saturdays and Sundays only (2 matches per day), 9 a.m and 12 p.m .  </p>
-                <p> Each team will play a total of 7 matches (each team will play against all the other teams in the league once).</p>
-                <p> At the end of the League the team with the most points wil be awarded a Trophy along with other prizes.</p>
+
+        <div class= "col-sm-3">
+            <h4><medium>LEAGUE NEWSFEED</medium></h4><span class="glyphicon glyphicon-comment"></span>
+            <hr/>
+            <ul th:each="blog : ${blogs}">
+                 <h4  th:text="${blog.topic}" ></h4>
+                 <p  class="glyphicon glyphicon-time" th:text="${blog.created}"></p>
+                 <p th:text="${blog.description}"></p>
+                 <hr/>
+            </ul>
         </div>
     </div>
-</div>
-
-
-
-
-<div  class="col-sm-8" style="margin-top :50px ">
-
-        <table class="table table-bordered table-striped">
-
-        <tr class="success">
-             <th><h3>Teams</h3></th>
-             <th><h3>Referee Name</h3></th>
-             <th><h3>Match Date</h3></th>
-             <th><h3>Match Time</h3></th>
-             <th><h3>Match Results</h3></th>
-        </tr>
-
-        <tr th:each="fixture : ${fixtures}">
-            <td th:text="${fixture.team.getTeam_name()} + ' ' + VS + ' '+ ${fixture.team_second.getTeam_name()}"></td>
-            <td th:text="${fixture.ref_name}"></td>
-            <td th:text="${fixture.match_date}"></td>
-            <td th:text="${fixture.match_time}"></td>
-            <td th:text="${fixture.home_team_goal} + ' - ' + ${fixture.away_team_goal} "></td>
-        </tr>
-
-        </table>
-
 </div>
 
 </body>

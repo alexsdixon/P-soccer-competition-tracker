@@ -4,7 +4,13 @@
 <body >
 
 
-<nav th:replace="fragments :: navigation"></nav>
+<div sec:authorize="isAuthenticated()">
+    <nav th:replace="fragments :: navadmin"></nav>
+</div>
+
+<div sec:authorize="isAnonymous()">
+    <nav th:replace="fragments :: navigation"></nav>
+</div>
 
 <div class="container panel panel-primary " style="margin-top:100px">
 

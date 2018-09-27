@@ -22,24 +22,25 @@ public class TeamController {
     public String index(Model model) {
 
         model.addAttribute("teams", teamDao.findAll());
-        model.addAttribute("title", "Teams");
+        model.addAttribute("title", "TEAMS");
 
         return "team/index";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String add(Model model) {
+    public String displayAddTeamForm(Model model) {
 
-        model.addAttribute("title", "Team");
+        model.addAttribute("title", "ADD TEAM");
         model.addAttribute("team", new Team());
         return "team/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(Model model,
+    public String processAddTeamForm(Model model,
                       @ModelAttribute @Valid Team team, Errors errors) {
 
         if (errors.hasErrors()) {
+            model.addAttribute("title", "ADD TEAM");
             return "team/add";
         }
         teamDao.save(team);
@@ -49,18 +50,18 @@ public class TeamController {
     @RequestMapping(value = "edit/{teamId}", method = RequestMethod.GET)
     public String displayEditTeamForm(Model model, @PathVariable int teamId) {
 
-        model.addAttribute("title", "Edit Team");
+        model.addAttribute("title", "ADD TEAM STATS");
         model.addAttribute("team", teamDao.findOne(teamId));
         return "team/edit";
     }
 
 
     @RequestMapping(value = "edit/{teamId}", method = RequestMethod.POST)
-    public String processEditPlayerForm(Model model, @PathVariable int teamId,
+    public String processEditTeamForm(Model model, @PathVariable int teamId,
                                         @ModelAttribute  @Valid Team newTeam, Errors errors) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Team");
+            model.addAttribute("title", "ADD TEAM STATS");
             return "team/edit";
         }
 

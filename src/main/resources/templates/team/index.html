@@ -6,37 +6,37 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
-<nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: navadmin"></nav>
 
 
 
 <table class="table">
 
-<tr>
-    <th>Edit</th>
-    <th>Team Name</th>
-    <th>Points</th>
-    <th>Matches Played</th>
-    <th>Matches Won</th>
-    <th>Matches Lost</th>
-    <th>Matches Draw</th>
-    <th>Goals For</th>
-    <th>Goals Against</th>
-    <th>Goal Difference</th>
-</tr>
+    <tr>
+        <th>Edit</th>
+        <th>Team Name</th>
+        <th>Points</th>
+        <th>Matches Played</th>
+        <th>Matches Won</th>
+        <th>Matches Lost</th>
+        <th>Matches Draw</th>
+        <th>Goals For</th>
+        <th>Goals Against</th>
+        <th>Goal Difference</th>
+    </tr>
 
-<tr th:each="team : ${teams}">
-    <td><a th:href="'team/edit/' + ${team.id}" th:text="Edit"></a></td>
-    <td  th:text="${team.getTeam_name()}"></td>
-    <td th:text="${team.points}"></td>
-    <td th:text="${team.matches_played}"></td>
-    <td th:text="${team.matches_won}"></td>
-    <td th:text="${team.matches_lost}"></td>
-    <td th:text="${team.matches_draw}"></td>
-    <td th:text="${team.goals_for}"></td>
-    <td th:text="${team.goals_against}"></td>
-    <td th:text="${team.goal_difference}"></td>
-</tr>
+    <tr th:each="team : ${teams}">
+        <td><a th:href="'team/edit/' + ${team.id}" th:text="Edit"></a></td>
+        <td  th:text="${team.getTeam_name()}"></td>
+        <td th:text="${team.points}"></td>
+        <td th:text="${team.matches_played}"></td>
+        <td th:text="${team.matches_won}"></td>
+        <td th:text="${team.matches_lost}"></td>
+        <td th:text="${team.matches_draw}"></td>
+        <td th:text="${team.goals_for}"></td>
+        <td th:text="${team.goals_against}"></td>
+        <td th:text="${team.goal_difference}"></td>
+    </tr>
 
 </table>
 

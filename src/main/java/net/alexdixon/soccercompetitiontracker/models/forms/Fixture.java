@@ -17,15 +17,15 @@ public class Fixture {
     private int id;
 
     @NotNull
-    @Size(min=1,  message= "Name is invalid")
+    @Size(min=3,  message= "Please Enter Referee Name!")
     private String ref_name;
 
     @NotNull
-    @Size(min=1,  message= "date is invalid")
+    @Size(min=4,  message= "Please Enter Valid Date!(Eg. July 10")
     private String match_date;
 
     @NotNull
-    @Size(min=1,  message= "time is invalid")
+    @Size(min=6,  message= "Time is Invalid!(Eg. 6:00 PM")
     private String match_time;
 
     private String home_team_goal;
@@ -106,7 +106,6 @@ public class Fixture {
     public void setTeam_second(Team team_second) {
         this.team_second = team_second;
     }
-
 
 
 

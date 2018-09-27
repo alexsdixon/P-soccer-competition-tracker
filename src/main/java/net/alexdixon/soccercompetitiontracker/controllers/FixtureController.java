@@ -26,33 +26,31 @@ public class FixtureController {
     private TeamDao teamDao;
 
 
-
-    //Request path to view all Match Fixtures
     @RequestMapping(value = "")
     public String index (Model model) {
 
         model.addAttribute("fixtures", fixtureDao.findAll());
-        model.addAttribute("title", "Match Fixtures");
+        model.addAttribute("title", "MATCH FIXTURES");
 
         return "fixture/index";
         }
 
-    //Request path to add Match Fixtures
+
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayaddFixtureForm(Model model) {
-            model.addAttribute("title", "Add Match Fixture");
+            model.addAttribute("title", "ADD FIXTURE");
             model.addAttribute(new Fixture());
             model.addAttribute("teams", teamDao.findAll());
             return "fixture/add";
         }
 
-    //Process and validate new Match Fixture
     @RequestMapping (value = "add", method = RequestMethod.POST)
     public String processAddFixtureForm(@ModelAttribute @Valid Fixture newFixture, Errors errors,
                                         @RequestParam int teamId, @RequestParam int team2Id, Model model){
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Fixture");
+            model.addAttribute("title", "ADD FIXTURE");
+            model.addAttribute("teams", teamDao.findAll());
             return "fixture/add";
         }
 
@@ -65,17 +63,22 @@ public class FixtureController {
     }
 
 
-    //Request path to Delete Old Match Fixtures
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveFixtureForm(Model model) {
         model.addAttribute("fixtures", fixtureDao.findAll());
-        model.addAttribute ("title", "Remove Fixture");
+        model.addAttribute ("title", "DELETE FIXTURE");
         return "fixture/remove";
     }
 
-    //Process remove Match Fixture
+
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveFixtureForm(@RequestParam int[] fixtureIds) {
+    public String processRemoveFixtureForm(@RequestParam int[] fixtureIds,Errors errors,Model model ) {
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "DELETE FIXTURE");
+            model.addAttribute("message", "Please select a Fixture or choose Cancel");
+            model.addAttribute("fixtures", fixtureDao.findAll());
+            return "fixture/remove";
+        }
 
         for (int fixtureId : fixtureIds) {
             fixtureDao.delete(fixtureId);
@@ -84,24 +87,24 @@ public class FixtureController {
         return "redirect:";
     }
 
-    //Request path to Edit Match Fixtures
+
     @RequestMapping(value = "edit/{fixtureId}", method = RequestMethod.GET)
     public String displayEditFixtureForm(Model model, @PathVariable int fixtureId) {
 
-        model.addAttribute("title", "Add Match Results");
+        model.addAttribute("title", "ADD MATCH RESULTS");
         model.addAttribute("fixture", fixtureDao.findOne(fixtureId));
         model.addAttribute("teams", teamDao.findAll());
         return "fixture/edit";
     }
 
-    //Process Edit Match Fixture
+
     @RequestMapping(value = "edit/{fixtureId}", method = RequestMethod.POST)
     public String processEditFixtureForm(Model model, @PathVariable int fixtureId,
                                          @ModelAttribute  @Valid Fixture newFixture,
                                          Errors errors, @RequestParam int teamId,@RequestParam int team2Id) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Fixture");
+            model.addAttribute("title", "ADD MATCH RESULTS");
             return "fixture/edit";
         }
 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container" style="margin-top:100px">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navadmin"></nav>
+
+<p th:unless="${blogs} and ${blogs.size()}"> No Blogs Available</p>
+
+
+<table class="table table-bordered">
+
+    <tr>
+        <th class="col-sm-2">Topic</th>
+        <th class="col-sm-8"> Information</th>
+        <th class="col-sm-2">Edit Blog</th>
+    </tr>
+
+    <tr th:each="blog : ${blogs}">
+        <td th:text="${blog.topic}"></td>
+        <td th:text="${blog.description}"></td>
+        <td><a th:href="'blog/edit/' + ${blog.id}" th:text="UPDATE"></a></td>
+    </tr>
+
+</table>
+
+<a href="/blog/add">Add Blog</a> |
+<a th:href="@{/blog/remove}">Remove Blog</a> |
+
+
+</body>
+</html>

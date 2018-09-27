@@ -4,7 +4,13 @@
 <body >
 
 
-<nav th:replace="fragments :: navigation"></nav>
+<div sec:authorize="isAuthenticated()">
+    <nav th:replace="fragments :: navadmin"></nav>
+</div>
+
+<div sec:authorize="isAnonymous()">
+    <nav th:replace="fragments :: navigation"></nav>
+</div>
 
 <div class="container panel panel-primary " style="margin-top:100px">
 
@@ -31,7 +37,7 @@
             <tr th:each="player : ${players}">
                 <td th:text="${player.player_name} "></td>
                 <td th:text="${player.team.getTeam_name()}"></td>
-                <td th:text="${player.player_position}"></td>
+                <td th:text="${player.position}"></td>
                 <td th:text="${player.goal_scored}"></td>
                 <td th:text="${player.assists}"></td>
                 <td th:text="${player.clean_sheet}"></td>

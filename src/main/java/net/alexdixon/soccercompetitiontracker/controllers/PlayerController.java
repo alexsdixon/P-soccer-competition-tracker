@@ -3,6 +3,7 @@ package net.alexdixon.soccercompetitiontracker.controllers;
 import net.alexdixon.soccercompetitiontracker.models.data.PlayerDao;
 import net.alexdixon.soccercompetitiontracker.models.data.TeamDao;
 import net.alexdixon.soccercompetitiontracker.models.forms.Player;
+import net.alexdixon.soccercompetitiontracker.models.forms.PlayerPosition;
 import net.alexdixon.soccercompetitiontracker.models.forms.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,19 +17,17 @@ import javax.validation.Valid;
 @RequestMapping("player")
 public class PlayerController {
 
-
     @Autowired
     private PlayerDao playerDao;
 
     @Autowired
     private TeamDao teamDao;
 
-
     @RequestMapping(value = "")
     public String index (Model model) {
 
         model.addAttribute("players", playerDao.findAll());
-        model.addAttribute("title", "Players");
+        model.addAttribute("title", "PLAYERS");
 
         return "player/index";
     }
@@ -36,9 +35,10 @@ public class PlayerController {
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayaddPlayerForm(Model model) {
-        model.addAttribute("title", "Add Player");
+        model.addAttribute("title", "ADD PLAYER");
         model.addAttribute(new Player());
         model.addAttribute("teams", teamDao.findAll());
+        model.addAttribute("playerPositions", PlayerPosition.values());
         return "player/add";
     }
 
@@ -47,7 +47,9 @@ public class PlayerController {
                                        @RequestParam int teamId, Model model){
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Player");
+            model.addAttribute("title", "ADD PLAYER");
+            model.addAttribute("teams", teamDao.findAll());
+            model.addAttribute("playerPositions", PlayerPosition.values());
             return "player/add";
         }
 
@@ -57,15 +59,12 @@ public class PlayerController {
         return "redirect:";
     }
 
-
-
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemovePlayerForm(Model model) {
         model.addAttribute("players", playerDao.findAll());
-        model.addAttribute ("title", "Remove Player");
+        model.addAttribute ("title", "DELETE PLAYER");
         return "player/remove";
     }
-
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemovePlayerForm(@RequestParam int[] playerIds) {
@@ -77,16 +76,14 @@ public class PlayerController {
         return "redirect:";
     }
 
-
     @RequestMapping(value = "edit/{playerId}", method = RequestMethod.GET)
     public String displayEditPlayerForm(Model model, @PathVariable int playerId) {
 
-        model.addAttribute("title", "Edit Player");
+        model.addAttribute("title", "ADD PLAYER STATS");
         model.addAttribute("player", playerDao.findOne(playerId));
         model.addAttribute("teams", teamDao.findAll());
         return "player/edit";
     }
-
 
     @RequestMapping(value = "edit/{playerId}", method = RequestMethod.POST)
     public String processEditPlayerForm(Model model, @PathVariable int playerId,
@@ -94,14 +91,14 @@ public class PlayerController {
                                          @RequestParam int teamId) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Player");
+            model.addAttribute("title", "ADD PLAYER STATS");
             return "player/edit";
         }
 
         Player editedPlayer = playerDao.findOne(playerId);
         editedPlayer.setPlayer_name(newPlayer.getPlayer_name());
         editedPlayer.setTeam(teamDao.findOne(teamId));
-        editedPlayer.setPlayer_position(newPlayer.getPlayer_position());
+        editedPlayer.setPosition(newPlayer.getPosition());
         editedPlayer.setGoal_scored(newPlayer.getGoal_scored());
         editedPlayer.setAssists(newPlayer.getAssists());
         editedPlayer.setClean_sheet(newPlayer.getClean_sheet());

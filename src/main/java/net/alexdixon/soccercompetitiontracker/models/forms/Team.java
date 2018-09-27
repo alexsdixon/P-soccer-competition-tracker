@@ -14,12 +14,9 @@ public class Team {
     @GeneratedValue
     private int id;
 
-
     @NotNull
     @Size(min = 3 , message = "Name must have at least 3 letters" )
     private String team_name;
-
-
 
     private int points;
     private int matches_played;
@@ -128,9 +125,6 @@ public class Team {
     public void setGoal_difference(int goal_difference) {
         this.goal_difference = goal_difference;
     }
-
-
-
 
 
 }

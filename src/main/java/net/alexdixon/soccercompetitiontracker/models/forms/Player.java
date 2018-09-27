@@ -16,15 +16,10 @@ public class Player {
     @Size(min = 1, message = "Name is invalid")
     private String player_name;
 
-
     @ManyToOne
     private Team team;
 
-    @NotNull
-    @Size(min = 1, message = "Position is invalid")
-    private String player_position;
-
-
+    private PlayerPosition position;
     private int goal_scored;
     private int assists;
     private int clean_sheet;
@@ -32,11 +27,9 @@ public class Player {
     private int yellow_card;
     private int games_played;
 
-
-    public Player(String player_name,  String player_position, int goal_scored, int assists, int clean_sheet, int red_card, int yellow_card, int games_played) {
+    public Player(String player_name, int goal_scored, int assists, int clean_sheet, int red_card, int yellow_card, int games_played) {
 
         this.player_name = player_name;
-        this.player_position = player_position;
         this.goal_scored = goal_scored;
         this.assists = assists;
         this.clean_sheet = clean_sheet;
@@ -58,14 +51,6 @@ public class Player {
 
     public void setPlayer_name(String player_name) {
         this.player_name = player_name;
-    }
-
-    public String getPlayer_position() {
-        return player_position;
-    }
-
-    public void setPlayer_position(String player_position) {
-        this.player_position = player_position;
     }
 
     public int getGoal_scored() {
@@ -124,7 +109,13 @@ public class Player {
         this.games_played = games_played;
     }
 
+    public PlayerPosition getPosition() {
+        return position;
+    }
 
+    public void setPosition(PlayerPosition position) {
+        this.position = position;
+    }
 
 
 }

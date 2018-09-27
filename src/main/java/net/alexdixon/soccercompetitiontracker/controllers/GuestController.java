@@ -1,5 +1,6 @@
 package net.alexdixon.soccercompetitiontracker.controllers;
 
+import net.alexdixon.soccercompetitiontracker.models.data.BlogDao;
 import net.alexdixon.soccercompetitiontracker.models.data.FixtureDao;
 import net.alexdixon.soccercompetitiontracker.models.data.PlayerDao;
 import net.alexdixon.soccercompetitiontracker.models.data.TeamDao;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("guest")
 public class GuestController {
 
-
-
     @Autowired
     private FixtureDao fixtureDao;
 
@@ -27,12 +26,16 @@ public class GuestController {
     @Autowired
     private TeamDao teamDao;
 
+    @Autowired
+    private BlogDao blogDao;
+
 
     @RequestMapping(value = "")
     public String index (Model model) {
 
         model.addAttribute("fixtures", fixtureDao.findAll());
         model.addAttribute("players", playerDao.findAll());
+        model.addAttribute("blogs", blogDao.findAll());
         model.addAttribute("title", "JAMROCK SOCCER CUP");
 
         return "guest/index";
@@ -41,9 +44,7 @@ public class GuestController {
     @RequestMapping(value = "leader")
     public String displayLeaderBoard ( Model model) {
 
-
-
-        model.addAttribute("title", "Leader Board");
+        model.addAttribute("title", "LEADER BOARD");
         model.addAttribute("players", playerDao.findByGoalScored());
         model.addAttribute("playersa", playerDao.findByAssist());
         model.addAttribute("playerscs", playerDao.findByCleanSheet());
@@ -52,15 +53,13 @@ public class GuestController {
         return "guest/leader";
     }
 
+
+
     @RequestMapping(value = "stats")
     public String displayStatsBoard ( Model model) {
 
-
-
-        model.addAttribute("title", "Team Stats Board");
+        model.addAttribute("title", "TEAM STATS");
         model.addAttribute("teams", teamDao.findByPoints());
-
-
 
         return "guest/stats";
     }
@@ -68,11 +67,8 @@ public class GuestController {
     @RequestMapping(value = "everyplayer")
     public String displayEveryPlayer ( Model model) {
 
-
-
-        model.addAttribute("title", "Every Player");
+        model.addAttribute("title", "ALL PLAYERS");
         model.addAttribute("players", playerDao.findBySorted());
-
 
 
         return "guest/everyplayer";

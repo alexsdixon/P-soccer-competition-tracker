@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container" style="margin-top:100px">
+<body style="margin-top:50px">
 
-<h1 th:text="${title}">Default Title</h1>
+<div class="container-fluid" style="color:#337ab7">
+    <h1 th:text="${title}">Default Title</h1>
+</div>
 
-<nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: navadmin"></nav>
 
-<form method="post">
+<form class=" container-fluid" method="post" style="max-width:600px;margin-top:50px">
 
     <div th:each="fixture : ${fixtures}" class="checkbox">
         <input type="checkbox" name="fixtureIds" th:value="${fixture.id}" th:id="${fixture.id}"/>
-        <label th:for="${fixture.id}" th:text="${fixture.team.getTeam_name()} + ' ' + VS + ' '+ ${fixture.team_second.getTeam_name()}"></label>
+        <label style="font-size:20px;" th:for="${fixture.id}" th:text="${fixture.team.getTeam_name()} + ' ' + VS + ' '+ ${fixture.team_second.getTeam_name()}"></label>
         <br />
     </div>
+    <br/>
 
-    <input type="submit" value="Remove Fixture" />
+    <input  class="btn btn-danger" type="submit" value="Delete" />
+    <a href="/fixture/" class="btn btn-primary" role="button">Cancel</a>
 </form>
 
 </body>
