@@ -34,6 +34,9 @@
                     <p> Each team will play a total of 7 matches (each team will play against all the other teams in the league once).</p>
                     <p> At the end of the League the team with the most points wil be awarded a Trophy along with other prizes.</p>
                 </div>
+                <div class="media-right">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh1b3L3kO8_J1pBKaV7XqVRS6JzjdBEd3fJENWFTkMCIMb1_yz"/>
+                </div>
             </div>
             <br/>
             <a href="/guest/schedule"> <h3>MATCH SCHEDULE<span class="glyphicon glyphicon-calendar"></span></h3></a>
@@ -70,7 +73,7 @@
                     </div>
                 </ul>
                 </div>
-                <div id="recent" class="tabcontent" >
+                <div id="recent" class="tabcontent" style="display: none;">
                 <p th:unless="${fixtures} and ${fixtures.size()}">No Old Fixtures</p>
                 <ul th:each="fixture : ${oldFixtures}">
                     <div class="row content">
