@@ -14,7 +14,7 @@ public class LoginController {
     @RequestMapping(value = "")
     public String index (Model model) {
 
-        model.addAttribute("title", "JAMROCK CUP ADMIN");
+        model.addAttribute("title", "ADMIN LOGIN");
 
         return "/login";
     }

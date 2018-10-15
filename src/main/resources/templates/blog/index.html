@@ -15,34 +15,48 @@
 
 <div class="container-fluid">
     <div class="row content">
-        <div class="col-sm-3 sidenav" style="background-color:#f1f1f1; height:auto;">
-            <h4>MENU</h4>
-            <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
+        <div class="col-sm-3 sidenav"  style="background-color:#f1f1f1;">
+            <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205" style="background-color:#f1f1f1;" >
+                <h4>MENU</h4>
                 <li class="active"><a href="/blog/">Blog Home</a></li>
                 <li><a href="/blog/add">Add Blog</a> </li>
                 <li><a th:href="@{/blog/remove}">Remove Blog</a></li>
             </ul>
         </div>
         <div class="col-sm-9">
+            <input class="form-control" id="myInput" type="text" placeholder="Search.."/>
+            <br/>
 <table class="table table-bordered">
-
+    <thead>
     <tr>
         <th class="col-sm-2">Topic</th>
         <th class="col-sm-8"> Information</th>
         <th class="col-sm-2">Edit Blog</th>
     </tr>
-
+    </thead>
+    <tbody id="myTable">
     <tr th:each="blog : ${blogs}">
         <td th:text="${blog.topic}"></td>
         <td th:text="${blog.description}"></td>
         <td><a th:href="'blog/edit/' + ${blog.id}" th:text="UPDATE"></a></td>
     </tr>
-
+    </tbody>
 </table>
         </div>
     </div>
 </div>
 
+<script>
+
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 
 </body>
 </html>

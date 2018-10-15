@@ -21,7 +21,7 @@ public class Fixture {
     private String ref_name;
 
     @NotNull
-    @Size(min=4,  message= "Please Enter Valid Date!(Eg. July 10")
+    @Size(min=10,  message= "Please Enter Valid Date!(Eg. 2018-10-30")
     private String match_date;
 
     @NotNull

@@ -15,28 +15,37 @@
 
 
 
-<div class="jumbotron text-center">
+<div class="jumbotron text-center" style="color:#337ab7">
     <h1 th:text="${title}">Default Title</h1>
 </div>
 
 <div class="container-fluid">
     <div class="row content">
         <div class="col-sm-9 sidenav">
-             <div class="media">
-                 <div class="media-left">
+            <div class="media" style="background-color:#f1f1f1;">
+                <div class="media-left">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh1b3L3kO8_J1pBKaV7XqVRS6JzjdBEd3fJENWFTkMCIMb1_yz"/>
-                 </div>
-                 <div class="media-body">
-                    <h2>Welcome to the JamRock Soccer Cup Page </h2>
-                    <p> This Soccer League will run for 2 months and compromises of 8 teams from the surrounding neighborhoods. </p><p> Matches are scheduled for Saturdays and Sundays only (2 matches per day), 9 a.m and 12 p.m .  </p>
+                </div>
+                <div class="media-body">
+                    <h2 style="color:#337ab7">Welcome to the RUBIS Soccer Cup Fan Page </h2>
+                    <br/>
+                    <p> This Soccer League is played throughout the Fall and compromises of 8 teams from the surrounding neighborhoods. </p>
+                    <p> Matches are scheduled for Saturdays and Sundays only (2 matches per day), 1 p.m and 4 p.m .  </p>
                     <p> Each team will play a total of 7 matches (each team will play against all the other teams in the league once).</p>
-                     <p> At the end of the League the team with the most points wil be awarded a Trophy along with other prizes.</p>
-                 </div>
-             </div>
+                    <p> At the end of the League the team with the most points wil be awarded a Trophy along with other prizes.</p>
+                </div>
+            </div>
             <br/>
-                <h3>MATCH SCHEDULE<span class="glyphicon glyphicon-calendar"></span></h3>
-                <div class="panel-group col-sm-4" >
-                    <ul th:each="fixture : ${fixtures}">
+            <a href="/guest/schedule"> <h3>MATCH SCHEDULE<span class="glyphicon glyphicon-calendar"></span></h3></a>
+            <div class="tab" style=" ">
+                <button class="tablinks" style="border: none;cursor: pointer; padding: 14px 16px;font-size: 17px;transition: 0.3s;" onclick="openDate(event, 'upcoming')">UPCOMING</button>
+                <button class="tablinks" style="border: none;cursor: pointer; padding: 14px 16px;font-size: 17px;transition: 0.3s;"  onclick="openDate(event, 'recent')">RECENTLY PLAYED</button>
+            </div>
+            <p th:unless="${fixtures} and ${fixtures.size()}">No Upcoming Fixtures Available</p>
+            <div class="panel-group col-sm-4" >
+                <div id="upcoming" class="tabcontent" >
+                <ul th:each="fixture : ${fixtures}">
+                    <div class="row content">
                         <div class="panel panel-info ">
                             <div class="panel-heading">
                                 <h4 th:text="${fixture.match_date}"></h4>
@@ -58,22 +67,122 @@
                                 </div>
                             </div>
                         </div>
-                     </ul>
+                    </div>
+                </ul>
                 </div>
+                <div id="recent" class="tabcontent" >
+                <p th:unless="${fixtures} and ${fixtures.size()}">No Old Fixtures</p>
+                <ul th:each="fixture : ${oldFixtures}">
+                    <div class="row content">
+                        <div class="panel panel-info ">
+                            <div class="panel-heading">
+                                <h4 th:text="${fixture.match_date}"></h4>
+                            </div>
+                            <div class="panel-body">
+                                <div style="overflow: hidden">
+                                    <p style="float: left"  class="glyphicon glyphicon-home" th:text=" ' ' + ${fixture.team.getTeam_name()}"></p>
+                                    <p style="float: right" th:text="${fixture.home_team_goal}"></p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <p style="float: left"  class="glyphicon glyphicon-plane" th:text=" ' ' + ${fixture.team_second.getTeam_name()}"></p>
+                                    <p style="float: right" th:text="${fixture.away_team_goal}"></p>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div style="overflow: hidden">
+                                    <p  style="float: left; margin-left:40px" th:text=" 'TIME:' + ' ' + ${fixture.match_time}"></p>
+                                    <p  style="float: right; margin-right:40px" th:text=" 'REF:' + ' ' + ${fixture.ref_name} "></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+                </div>
+            </div>
+            <div class="container media col-sm-7" style="margin-left:70px;background-color:LightSkyBlue; ">
+                <h2 class=" text-center" style=";margin-left:10px">STADIUM PHOTOS</h2>
+                <br/>
+                <div class="mySlides" style="display: none" >
+                    <img style="width:100%;height:500px;" src="http://blog.acis.com/wp-content/uploads/2015/08/wembley6-770x418.jpg"/>
+                    <p style="color: #f2f2f2;font-size: 15px;padding: 8px 12px;position: absolute;bottom: 8px;width: 100%;text-align: center;"> STADIUM 1</p>
+                </div>
+                <div  class="mySlides" style="display: none">
+                    <img style="width:100%;height:500px;" src="http://blog.acis.com/wp-content/uploads/2015/08/Emirates-Stadium-Arsenal-London.jpg"/>
+                    <p style="color: #f2f2f2;font-size: 15px;padding: 8px 12px;position: absolute;bottom: 8px;width: 100%;text-align: center;"> STADIUM 2 </p>
+                </div>
+                <div class="mySlides" style="display: none">
+                    <img style="width:100%;height:500px;"  src="http://blog.acis.com/wp-content/uploads/2015/08/Stamford_Bridge.jpg" />
+                    <p style="color: #f2f2f2;font-size: 15px;padding: 8px 12px;position: absolute;bottom: 8px;width: 100%;text-align: center;"> STADIUM 3</p>
+                </div>
+                <a style="cursor: pointer;position: absolute;top: 60%;margin-left:10px;padding: 16px;margin-top: -22px;color: white;font-size: 45px;transition: 0.6s ease;" onclick="plusSlides(-1)">&#10094;</a>
+                <a style="cursor: pointer;position: absolute;top: 60%;margin-right:20px;padding: 16px;margin-top: -22px;color: white;font-size: 45px;transition: 0.6s ease; right: 0;" onclick="plusSlides(1)">&#10095;</a>
+
+            </div>
+
         </div>
 
-        <div class= "col-sm-3">
-            <h4><medium>LEAGUE NEWSFEED</medium></h4><span class="glyphicon glyphicon-comment"></span>
-            <hr/>
-            <ul th:each="blog : ${blogs}">
-                 <h4  th:text="${blog.topic}" ></h4>
-                 <p  class="glyphicon glyphicon-time" th:text="${blog.created}"></p>
-                 <p th:text="${blog.description}"></p>
-                 <hr/>
+
+
+        <div class= "col-sm-3" style="background-color:#f1f1f1;height:1100px;overflow-y:auto;">
+            <h4 style="color:#337ab7"><medium>LEAGUE NEWSFEED</medium></h4><span class="glyphicon glyphicon-comment"></span>
+            <hr style="height:4px;border-width:0;background-color:LightSkyBlue"/>
+            <p th:unless="${blogs} and ${blogs.size()}">No Post Available</p>
+            <ul  th:each="blog : ${blogs}">
+                <h4 style="color:#337ab7" th:text="${blog.topic}" ></h4>
+                <p  class="glyphicon glyphicon-time" th:text="${blog.created}"></p>
+                <p th:text="${blog.description}"></p>
+                <hr style="height:2px;border-width:0;background-color:LightSkyBlue"/>
             </ul>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+
+function openDate(evt, dateName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(dateName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+//]]>
+</script>
 
 </body>
 </html>

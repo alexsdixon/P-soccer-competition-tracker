@@ -33,10 +33,11 @@ public class GuestController {
     @RequestMapping(value = "")
     public String index (Model model) {
 
-        model.addAttribute("fixtures", fixtureDao.findAll());
+        model.addAttribute("fixtures", fixtureDao.findByDateCur());
+        model.addAttribute("oldFixtures", fixtureDao.findByDatePast());
         model.addAttribute("players", playerDao.findAll());
-        model.addAttribute("blogs", blogDao.findAll());
-        model.addAttribute("title", "JAMROCK SOCCER CUP");
+        model.addAttribute("blogs", blogDao.findByCreated());
+        model.addAttribute("title", "RUBIS SOCCER CUP");
 
         return "guest/index";
     }
@@ -74,4 +75,14 @@ public class GuestController {
         return "guest/everyplayer";
     }
 
+    @RequestMapping(value = "schedule")
+    public String displayMatchSchedule ( Model model) {
+
+        model.addAttribute("title", "Schedule");
+        model.addAttribute("octoberFixtures", fixtureDao.findByDateOct());
+        model.addAttribute("novemberFixtures", fixtureDao.findByDateNov());
+
+
+        return "guest/schedule";
+    }
 }

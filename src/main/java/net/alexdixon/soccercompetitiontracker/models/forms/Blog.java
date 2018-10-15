@@ -23,11 +23,11 @@ public class Blog {
 
 
     @NotNull
-    @Size(min=1,  message= "topic is invalid")
+    @Size(min=1,  message= "Topic is Invalid!")
     private String topic;
 
     @NotNull
-    @Size(min=1,  message= "description is invalid")
+    @Size(min=1,  message= "Description is Invalid!")
     private String description;
 
 

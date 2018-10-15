@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body >
+
+
+<div sec:authorize="isAuthenticated()">
+    <nav th:replace="fragments :: navadmin"></nav>
+</div>
+
+<div sec:authorize="isAnonymous()">
+    <nav th:replace="fragments :: navigation"></nav>
+</div>
+
+<div class="container panel panel-primary " style="margin-top:100px;background-color:#FFEBCD">
+
+    <div class="panel-heading text-center ">
+        <h2>MATCH SCHEDULE</h2>
+    </div>
+
+    <div class="tab" style=" overflow: hidden; border: 1px solid #ccc;background-color:#337ab7;text-align:center;">
+        <button class="tablinks" style="border: none;cursor: pointer; padding: 14px 16px;font-size: 17px;transition: 0.3s;" onclick="openDate(event, 'October')">October</button>
+        <button class="tablinks" style="border: none;cursor: pointer; padding: 14px 16px;font-size: 17px;transition: 0.3s;"  onclick="openDate(event, 'November')">November</button>
+    </div>
+
+    <div id="October" class="tabcontent" >
+        <ul style="margin-top:50px" th:each="fixture : ${octoberFixtures}">
+            <div class="panel-group panel-info col-sm-3" >
+                <div class="panel-heading" style="overflow: hidden">
+                    <h4 style="float: left" th:text="${fixture.match_date}"></h4>
+                    <h4 style="float: right" th:text="${fixture.match_time}"></h4>
+                </div>
+                <div class="panel-body" style="background-color:#337ab7;">
+                    <div style="overflow: hidden">
+                        <p style="float: left"  class="glyphicon glyphicon-home" th:text=" ' ' + ${fixture.team.getTeam_name()}"></p>
+                        <p style="float: right" th:text="${fixture.home_team_goal}"></p>
+                    </div>
+                    <div style="overflow: hidden">
+                        <p style="float: left"  class="glyphicon glyphicon-plane" th:text=" ' ' + ${fixture.team_second.getTeam_name()}"></p>
+                        <p style="float: right" th:text="${fixture.away_team_goal}"></p>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <p  style="margin-left:60px" th:text=" 'REF:' + ' ' + ${fixture.ref_name} "></p>
+                </div>
+            </div>
+        </ul>
+    </div>
+
+    <div id="November" class="tabcontent"  >
+        <ul style="margin-top:50px" th:each="fixture : ${novemberFixtures}">
+            <div class="panel-group panel-info col-sm-3" >
+                <div class="panel-heading" style="overflow: hidden">
+                    <h4 style="float: left" th:text="${fixture.match_date}"></h4>
+                    <h4 style="float: right" th:text="${fixture.match_time}"></h4>
+                </div>
+                <div class="panel-body" style="background-color:#337ab7;">
+                    <div style="overflow: hidden">
+                        <p style="float: left"  class="glyphicon glyphicon-home" th:text=" ' ' + ${fixture.team.getTeam_name()}"></p>
+                        <p style="float: right" th:text="${fixture.home_team_goal}"></p>
+                    </div>
+                    <div style="overflow: hidden">
+                        <p style="float: left"  class="glyphicon glyphicon-plane" th:text=" ' ' + ${fixture.team_second.getTeam_name()}"></p>
+                        <p style="float: right" th:text="${fixture.away_team_goal}"></p>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <p  style="margin-left:60px" th:text=" 'REF:' + ' ' + ${fixture.ref_name} "></p>
+                </div>
+            </div>
+        </ul>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+function openDate(evt, dateName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(dateName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+//]]>
+</script>
+
+
+</body>
+</html>

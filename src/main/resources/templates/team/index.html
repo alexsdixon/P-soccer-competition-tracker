@@ -15,29 +15,32 @@
 
 <div class="container-fluid">
     <div class="row content">
-        <div class="col-sm-3 sidenav" style="background-color:#f1f1f1; height:auto;">
-            <h4>MENU</h4>
-            <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
+        <div class="col-sm-3 sidenav"  style="background-color:#f1f1f1;">
+            <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205" style="background-color:#f1f1f1;" >
+                <h4>MENU</h4>
                 <li class="active"><a href="/team/">Team Home</a></li>
                 <li><a href="/team/add">Add Team</a> </li>
             </ul>
         </div>
         <div class="col-sm-9">
-<table class="table table-bordered">
-
+            <input class="form-control" id="myInput" type="text" placeholder="Search.."/>
+        <br/>
+<table class="table table-bordered" id="myTable">
+    <thead>
     <tr>
-        <th>Edit</th>
-        <th>Team Name</th>
-        <th>Points</th>
-        <th>Matches Played</th>
-        <th>Matches Won</th>
-        <th>Matches Lost</th>
-        <th>Matches Draw</th>
-        <th>Goals For</th>
-        <th>Goals Against</th>
-        <th>Goal Difference</th>
+        <th style="cursor:pointer;" onclick="sortTable(0)">Edit</th>
+        <th style="cursor:pointer;" onclick="sortTable(1)" >Team Name</th>
+        <th style="cursor:pointer;" onclick="sortTable(2)">Points</th>
+        <th style="cursor:pointer;" onclick="sortTable(3)">Matches Played</th>
+        <th style="cursor:pointer;" onclick="sortTable(4)">Matches Won</th>
+        <th style="cursor:pointer;" onclick="sortTable(5)">Matches Lost</th>
+        <th style="cursor:pointer;" onclick="sortTable(6)">Matches Draw</th>
+        <th style="cursor:pointer;" onclick="sortTable(7)">Goals For</th>
+        <th style="cursor:pointer;" onclick="sortTable(8)">Goals Against</th>
+        <th style="cursor:pointer;" onclick="sortTable(9)">Goal Difference</th>
     </tr>
-
+    </thead>
+    <tbody >
     <tr th:each="team : ${teams}">
         <td><a th:href="'team/edit/' + ${team.id}" th:text="Edit"></a></td>
         <td  th:text="${team.getTeam_name()}"></td>
@@ -50,12 +53,79 @@
         <td th:text="${team.goals_against}"></td>
         <td th:text="${team.goal_difference}"></td>
     </tr>
-
+    </tbody>
 </table>
         </div>
     </div>
 </div>
 
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc";
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+//]]>
+</script>
 
 </body>
 </html>

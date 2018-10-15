@@ -70,7 +70,7 @@ public class PlayerController {
     public String processRemovePlayerForm(@RequestParam(required=false) int[] playerIds, Model model) {
 
         if (playerIds == null) {
-            model.addAttribute("fixtures", playerDao.findAll());
+            model.addAttribute("players", playerDao.findAll());
             model.addAttribute ("title", "DELETE PLAYER");
             model.addAttribute ("message", "Please choose a Player to delete or go back");
             return "player/remove";
