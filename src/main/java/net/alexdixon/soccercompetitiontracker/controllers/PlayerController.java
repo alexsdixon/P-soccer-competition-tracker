@@ -60,11 +60,11 @@ public class PlayerController {
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String displayRemovePlayerForm(Model model) {
-        model.addAttribute("players", playerDao.findAll());
-        model.addAttribute ("title", "DELETE PLAYER");
-        return "player/remove";
-    }
+public String displayRemovePlayerForm(Model model) {
+    model.addAttribute("players", playerDao.findAll());
+    model.addAttribute ("title", "DELETE PLAYER");
+    return "player/remove";
+}
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemovePlayerForm(@RequestParam(required=false) int[] playerIds, Model model) {
@@ -95,8 +95,8 @@ public class PlayerController {
 
     @RequestMapping(value = "edit/{playerId}", method = RequestMethod.POST)
     public String processEditPlayerForm(Model model, @PathVariable int playerId,
-                                         @ModelAttribute  @Valid Player newPlayer, Errors errors,
-                                         @RequestParam int teamId) {
+                                        @ModelAttribute  @Valid Player newPlayer, Errors errors,
+                                        @RequestParam int teamId) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "ADD PLAYER STATS");
@@ -120,3 +120,4 @@ public class PlayerController {
 
 
 }
+
